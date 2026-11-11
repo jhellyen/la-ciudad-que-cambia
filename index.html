@@ -155,7 +155,6 @@ function inspect(container,key){
 }
 
 $('full').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{$('full').textContent='Pantalla completa no disponible'}};
-new ResizeObserver(draw).observe(canvas);
 
 function render(){
  $('phases').replaceChildren();phases.forEach((p,i)=>btn(p,()=>{state.phase=i;update()},$('phases'),state.phase===i));
@@ -260,6 +259,7 @@ function answer(container,key){ inspect(container,key);
 }
 
 render();</script><script type="module" src="./sync.js?v=4"></script></html>
+
 
 
 
