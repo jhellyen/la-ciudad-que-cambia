@@ -14,7 +14,8 @@ function button(text,fn,where){const b=document.createElement('button');b.textCo
 async function attempt(fn){try{await fn()}catch(e){say('Error · '+e.message)}}
 if(!firebaseConfig.projectId){say('Falta configurar Firebase. Consulta CONFIGURACION.md.')}
 else {
-const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+say('Firebase listo · inicia sesión o abre el enlace de tu equipo');
+const app=initializeApp(firebaseConfig,new URLSearchParams(location.search).has('team')?'[DEFAULT]':'docente'),auth=getAuth(app),db=getFirestore(app);
 const watch=(ref,callback)=>stops.push(onSnapshot(ref,callback,e=>say('Error de sincronización · '+e.message)));
 const error=e=>say('Error de guardado · '+e.message);
 async function enterTeam(sessionId,teamId){
@@ -30,7 +31,7 @@ async function enterTeam(sessionId,teamId){
   else if(data.editor!==user.uid)throw Error('Este equipo ya tiene portavoz. Usa su navegador o pide a la docente que libere el acceso.');
   return data;
  });
- mode='team';form.hidden=true;game.hidden=false;
+ mode='team';form.hidden=true;game.hidden=false; document.getElementById('phases').hidden=true; document.getElementById('reset').hidden=true;
  window.cityTeam.load(result.work);
  say(result.name+' · conectado');
  window.cityTeam.save=patch=>{
@@ -142,6 +143,8 @@ if(args.has('session')&&args.has('team')){
  else say('Enlace de equipo incorrecto');
 }
 }
+
+
 
 
 

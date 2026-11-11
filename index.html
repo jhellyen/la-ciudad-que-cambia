@@ -135,7 +135,7 @@ function render(){
  if(!state.surprise){ activity.insertAdjacentHTML('beforeend','<p>Esperad a que la docente revele la sorpresa.</p>'); }
  else activity.insertAdjacentHTML('beforeend','<div class="event"><h3>Bolsas junto al parque</h3><p>A la mañana siguiente aparecen bolsas cerradas junto a la entrada del parque. Un vecino dice que llegaron del mercado.</p><p>¿Dónde registrarías el hallazgo? ¿Qué puedes afirmar sobre su origen y contenido? Añade una observación y un dato que comprobarías.</p></div>');
  }
- $('cards').replaceChildren();cards.slice(0,state.revealed>=3?11:state.revealed>=1?8:7).forEach((card,i)=>btn(card,()=>{chosen=i;render()},$('cards'),chosen===i));
+ if(state.phase===1) Array.from(activity.querySelectorAll('.event')).forEach((node,i)=>answer(node,state.revealed-1-i)); if(state.phase===4&&state.surprise)answer(activity.querySelector('.event'),'final'); $('cards').replaceChildren();cards.slice(0,state.revealed>=3?11:state.revealed>=1?8:7).forEach((card,i)=>btn(card,()=>{chosen=i;render()},$('cards'),chosen===i));
  $('map').replaceChildren();zones.forEach((zone,i)=>{
  const panel=document.createElement('article');panel.hidden=i!==district;panel.innerHTML='<h3>'+zone+'</h3>';
  const items=document.createElement('div');panel.append(items);
@@ -214,7 +214,8 @@ function answer(container,key){
  label.append(box);container.append(label); const hint=document.createElement("details"); const summary=document.createElement("summary"); summary.textContent="Pista para revisar"; hint.append(summary,clues[key]);container.append(hint);const note=document.createElement("p");note.className="feedback";note.dataset.feedback=key;note.setAttribute("role","status");container.append(note);showFeedback();
 }
 
-render();</script><script type="module" src="./sync.js?v=2"></script></html>
+render();</script><script type="module" src="./sync.js?v=3"></script></html>
+
 
 
 
