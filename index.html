@@ -34,13 +34,13 @@ header{background:linear-gradient(90deg,#101d2af5 10%,#152739e8 49%,#0e1e2f40),u
 <script>
 const phases=['Construimos la ciudad','Llegan los imprevistos','La información está incompleta','Redactamos el parte','Última sorpresa'];
 const zones=['🏘️ Viviendas','🛒 Mercado','🏢 Oficinas','🌳 Parque'];
-const cards=['🍎 Restos alimentarios','📦 Cartón','🍾 Vidrio','🧴 Envases de plástico','🌿 Poda','🪑 Muebles','👕 Textiles','🥤 Vasos reutilizables','🪑 Sillas metálicas','🪵 Muebles de tablero','🪵 Madera maciza'];
+const cards=['🍎 Restos alimentarios','📦 Cartón','🍾 Vidrio','🧴 Envases de plástico','🌿 Poda','🪑 Muebles','👕 Textiles','🥤 Vasos usados','🪑 Sillas metálicas','🪵 Muebles de tablero','🪵 Madera maciza'];
 const labels=['Sabemos','Proponemos','Necesitamos comprobar'];
 const events=[
- ['Festival en el parque','Tras el festival quedan restos de comida, vasos reutilizables y envases de distintos materiales.',[
+ ['Festival en el parque','Tras el festival quedan restos de comida, vasos usados y envases de distintos materiales.',[
   'Inspeccionad la bandeja y los vasos. Añadid al Parque las tarjetas que correspondan a lo observado.',
-  'Explicad por qué conviene distinguir los restos de comida, los envases y los vasos reutilizables.',
-  'Indicad qué comprobaríais antes de decidir si los vasos se pueden recuperar para otro evento.'
+  'Explicad por qué conviene distinguir los restos de comida, el vidrio y los plásticos. Registrad los vasos como «Vasos usados» si aún no habéis confirmado su material.',
+  'Indicad qué comprobaríais para clasificar los vasos por material. Por ejemplo, buscad un marcado o consultad la ficha del producto.'
  ]],
  ['Lluvia sobre el cartón','El cartón almacenado al aire libre en el Mercado se ha mojado.',[
   'Inspeccionad las cajas y la báscula. Conservad la tarjeta Cartón en el Mercado y anotad en «Sabemos» que está mojado.',
@@ -48,7 +48,7 @@ const events=[
   'Indicad cómo comprobaríais qué parte del peso corresponde al agua.'
  ]],
  ['Renovación del mobiliario','Las Oficinas retiran sillas metálicas, muebles de tablero y piezas de madera maciza.',[
-  'Inspeccionad la silla y el tablero. Registrad en Oficinas las tres clases de materiales. Si habíais puesto la tarjeta genérica Muebles para este lote, sustituidla por las específicas.',
+  'Inspeccionad la silla y el tablero. Registrad en Oficinas las tres tarjetas del lote: sillas metálicas, muebles de tablero y madera maciza. Si habíais puesto la tarjeta genérica Muebles para este lote, sustituidla por las específicas.',
   'Explicad qué información sobre la composición se perdería si todo se registrara como Muebles.',
   'Indicad qué revisaríais para reconocer piezas con recubrimientos o materiales unidos entre sí.'
  ]],
@@ -58,7 +58,7 @@ const events=[
   'Indicad qué dato falta para saber cuánto vidrio y plástico hay en toda la carga y cómo lo obtendríais.'
  ]]
 ];
-const envelopes=[['Procedencia','La carga se recogió en el mercado tras el cierre. No consta de qué puestos procede.'],['Humedad','La muestra representativa tiene un 60 % de humedad en base húmeda.'],['Composición','El muestreo identifica restos vegetales, cartón, plástico y vidrio. No aporta proporciones por material.'],['Impropios','Se observan fragmentos de vidrio y plástico en una carga destinada a la recogida de restos alimentarios. No se ha cuantificado su proporción.']];
+const envelopes=[['Procedencia','La carga se recogió en el mercado tras el cierre. No consta de qué puestos procede.'],['Humedad','En este supuesto didáctico, una muestra representativa indica un 60 % de humedad en base húmeda.'],['Composición','El muestreo identifica restos vegetales, cartón, plástico y vidrio. No aporta proporciones por material.'],['Impropios','Se observan fragmentos de vidrio y plástico en una carga destinada a la recogida de restos alimentarios. No se ha cuantificado su proporción.']];
 const initial=()=>({map:[[],[],[],[]],notes:['','',''],opened:[],phase:0,revealed:0,extra:false,surprise:false,goal:''});
 let state=initial(),chosen=0;
 state.responses={};
@@ -68,7 +68,7 @@ const btn=(label,action,parent,pressed)=>{const b=document.createElement('button
 const update=()=>{save();render()};
 let district=0,zoom=1;
 const incidents=[
- ['Festival',3,15.7,13.9,[['🍽️ Bandeja','Entre los restos de comida hay plástico y vidrio.'],['🥤 Vasos','Los vasos rígidos llevan la marca de devolución. Su estado queda por comprobar.']]],
+ ['Festival',3,15.7,13.9,[['🍽️ Bandeja','Entre los restos de comida hay plástico y vidrio.'],['🥤 Vasos','Son vasos rígidos usados. La imagen no permite confirmar de qué material están hechos ni si todos son iguales.']]],
  ['Lluvia',1,17.6,7.4,[['📦 Cajas','El cartón se quedó a la intemperie y está mojado.'],['⚖️ Báscula','La báscula registra el cartón junto con el agua que contiene.']]],
  ['Mobiliario',2,7.6,17.3,[['🪑 Silla','La estructura es metálica.'],['🪵 Tablero','En el canto se ven partículas. Otra pieza cercana es de madera maciza.']]],
  ['Mezcla de residuos',1,13.2,7.6,[['🥬 Restos','Se ven fragmentos de plástico entre los restos de comida.'],['🍾 Fragmento','También hay vidrio. La vista no permite saber qué proporción supone en toda la carga.']]],
@@ -277,7 +277,7 @@ function render(){
  });
  }
  if(state.phase===2){
- activity.insertAdjacentHTML('beforeend','<div class="event"><h3>Una tonelada de residuos de composición desconocida</h3><p>Elegid una pregunta antes de votar qué dos sobres abrir. Por ejemplo, ¿cuánta materia seca contiene la carga? o ¿qué materiales de origen biológico contiene?</p><label>Pregunta de la clase <input id="goal" maxlength="220"></label><p id="count"></p><div class="row" id="envelopes"></div><div id="evidence"></div></div>');
+ activity.insertAdjacentHTML('beforeend','<div class="event"><h3>Una tonelada de residuos de composición desconocida · supuesto didáctico</h3><p>Elegid una pregunta antes de votar qué dos sobres abrir. Por ejemplo, ¿cuánta materia seca estimáis que contiene la carga? o ¿qué materiales de origen biológico contiene?</p><label>Pregunta de la clase <input id="goal" maxlength="220"></label><p id="count"></p><div class="row" id="envelopes"></div><div id="evidence"></div></div>');
  $('goal').value=state.goal;$('goal').oninput=e=>{state.goal=e.target.value;save()};
  $('count').textContent='Sobres abiertos: '+state.opened.length+' de '+(state.extra?4:2);
  envelopes.forEach(([name,data],i)=>{
@@ -344,7 +344,7 @@ function teamSave(){
 }
 
 const clues={
- 0:'Revisad si todos los objetos son del mismo material. ¿Qué comprobaríais antes de tratar los vasos reutilizables como residuos?',
+ 0:'Separad lo que observáis de lo que queda por confirmar. ¿Qué dato permite identificar el material de los vasos?',
  1:'Distinguid la masa de agua de la masa de cartón seco. ¿Cuál de las dos aumenta al mojarse?',
  2:'Separad metal, madera maciza y tablero. ¿Qué dato pediríais sobre recubrimientos o piezas mezcladas?',
  3:'Indicad en qué corriente aparecen los impropios. ¿Ver algunos fragmentos permite calcular su proporción?',
@@ -374,6 +374,7 @@ function answer(container,key){ inspect(container,key);
 }
 
 render();</script><script type="module" src="./sync.js?v=4"></script></html>
+
 
 
 
