@@ -133,7 +133,7 @@ function openTeacher(sessionId){
   snap.docs.sort((a,b)=>a.data().name.localeCompare(b.data().name,'es',{numeric:true})).forEach(d=>{
    const t=d.data(),w=t.work,box=document.createElement('article'),head=document.createElement('h3');
    box.dataset.team=d.id;
-   head.textContent=t.name+' · '+Object.values(w.responses||{}).filter(v=>v.trim()).length+' respuestas · '+(t.editor?'portavoz asignado':'pendiente');
+   head.textContent=t.name+' · '+[0,1,2,3,'final'].filter(k=>w.responses?.[k]?.trim()).length+' respuestas · '+(t.editor?'portavoz asignado':'pendiente');
    box.append(head);
    const url=new URL(location.href);url.search='';url.searchParams.set('session',sessionId);url.searchParams.set('team',d.id);
    const link=document.createElement('a');link.href=url;link.textContent='Enlace de acceso de '+t.name;link.target='_blank';link.rel='noopener';box.append(link);
@@ -173,6 +173,7 @@ if(args.has('session')&&args.has('team')){
  else say('Enlace de equipo incorrecto');
 }
 }
+
 
 
 

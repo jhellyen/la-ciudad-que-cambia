@@ -25,11 +25,11 @@ section,details,.map article:nth-child(n){background:#131f2a;border-color:#34465
 .street-observation{left:4%;right:128px;bottom:5%;background:#0c1724df;border:1px solid #52646f;min-height:36px;display:flex;align-items:center}
 .street-answer{bottom:5%;right:3%;background:#f2c476;color:#16202a;border:1px solid #ffe1ac;font-weight:750}
 @media(max-width:620px){.street-items button{top:57%;padding:5px 7px}.street-observation{bottom:4%;right:112px}.street-answer{max-width:100px;white-space:normal}}
-header{background:linear-gradient(90deg,#101d2af5 10%,#152739e8 49%,#0e1e2f40),url(./escena-ciudad.jpg) center 44%/cover}.inspection-count{position:absolute;right:4%;top:6%;padding:5px 9px;border:1px solid #e9c889;border-radius:8px;background:#0d1c28e8;color:#fff0cc;font-size:clamp(10px,1.3vw,14px)}.street-view h3{max-width:70%}.street-view{background-size:100% 100%}button:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid #f5cb7c;outline-offset:2px}#stage.street-open{aspect-ratio:2.15;min-height:230px}.street-items button{left:23%;top:70%}.street-items button:nth-child(2){left:80%}.street-view{background-size:cover}@media(max-width:550px){.street-items button{top:59%}}.street-view[data-district="viviendas"]{background-image:url(./distrito-viviendas.jpg)}.street-view[data-district="mercado"]{background-image:url(./distrito-mercado.jpg)}.street-view[data-district="oficinas"]{background-image:url(./distrito-oficinas.jpg)}.district-observation{right:150px}@media(max-width:620px){.district-observation{right:112px}}.event-steps{padding-left:1.45em;margin:12px 0}.event-steps li{margin-bottom:10px}.event-steps strong{color:#f5cc86}#cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:9px}#cards button{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;padding:6px 6px 9px;text-align:center;line-height:1.2;min-height:102px}#cards img,.chip img{object-fit:cover;border-radius:7px;display:block;background:#111d29}.chip{display:inline-flex;align-items:center;gap:6px}.chip img{width:31px;height:31px}</style><header><h1>La ciudad que cambia</h1><p>Somos el equipo encargado de conocer los residuos de una ciudad. Tenemos que identificar qué se genera, dónde y qué características presenta. La ciudad irá cambiando y nuestro mapa tendrá que cambiar con ella.</p></header><section id="room"><p id="connection" role="status">Conectando con Firebase…</p><div id="access"><form id="teacher-login" class="row"><label>Correo docente <input id="email" type="email" required autocomplete="username"></label><label>Contraseña <input id="password" type="password" required autocomplete="current-password"></label><button>Entrar al panel docente</button></form><form id="teacher-session" hidden><p><label>Nombre de la sesión <input id="session-title" maxlength="100"></label> <label>Equipos <input id="team-count" type="number" value="4" min="2" max="12"></label> <button>Crear sesión</button></p><label>Identificador de una sesión <input id="existing"></label> <button type="button" id="resume">Reabrir sesión</button></form></div><section id="archive" hidden><h2>Sesiones guardadas por fecha</h2><p class="muted">Abre una carpeta y selecciona una sesión para consultar el trabajo de sus equipos.</p><div id="archive-folders">Cargando sesiones…</div></section><div id="teacher" hidden></div></section><main hidden><section><h2 id="team-score" role="status">Puntuación · 0 / 15</h2><details><summary>Roles del equipo en Zoom</summary><p><b>Portavoz</b> maneja el mapa y escribe. <b>Observación</b> describe los objetos. <b>Interpretación</b> propone qué cambia y por qué. <b>Comprobación</b> identifica qué datos faltan. Rotad los roles con cada incidente.</p></details><p>Por reto, 1 punto si identificáis el cambio, 2 si además lo justificáis y 3 si también indicáis qué queda por comprobar o cómo lo comprobaríais.</p></section>
-<nav id="phases" aria-label="Fases"></nav><div id="layout"><div><section><h2>Mapa de la ciudad</h2><div id="stage"><canvas id="city" role="img" aria-label="Ciudad en perspectiva isométrica"></canvas><div id="pins"></div></div><div class="row toolbar"><button id="zoom">Vista general</button><button id="full">Pantalla completa</button></div><p class="muted">Selecciona Viviendas, Mercado u Oficinas para entrar en su escena. Usa «Vista general» para volver al mapa.</p><div id="map" class="map"></div></section>
-<section id="palette"><h2>Tarjetas de residuos</h2><p>Selecciona una tarjeta y pulsa «Añadir» en el distrito seleccionado. Puedes repetirla en varias zonas. Pulsa × en una tarjeta del mapa para retirarla.</p><div id="cards" class="row"></div></section>
+header{background:linear-gradient(90deg,#101d2af5 10%,#152739e8 49%,#0e1e2f40),url(./escena-ciudad.jpg) center 44%/cover}.inspection-count{position:absolute;right:4%;top:6%;padding:5px 9px;border:1px solid #e9c889;border-radius:8px;background:#0d1c28e8;color:#fff0cc;font-size:clamp(10px,1.3vw,14px)}.street-view h3{max-width:70%}.street-view{background-size:100% 100%}button:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid #f5cb7c;outline-offset:2px}#stage.street-open{aspect-ratio:2.15;min-height:230px}.street-items button{left:23%;top:70%}.street-items button:nth-child(2){left:80%}.street-view{background-size:cover}@media(max-width:550px){.street-items button{top:59%}}.street-view[data-district="viviendas"]{background-image:url(./distrito-viviendas.jpg)}.street-view[data-district="mercado"]{background-image:url(./distrito-mercado.jpg)}.street-view[data-district="oficinas"]{background-image:url(./distrito-oficinas.jpg)}.district-observation{right:150px}@media(max-width:620px){.district-observation{right:112px}}.event-steps{padding-left:1.45em;margin:12px 0}.event-steps li{margin-bottom:10px}.event-steps strong{color:#f5cc86}#cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:9px}#cards .waste-tile{border:1px solid #536b74;border-radius:8px;background:#182a30;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;padding:6px 6px 9px;text-align:center;line-height:1.2;min-height:102px}#cards img,.chip img{object-fit:cover;border-radius:7px;display:block;background:#111d29}.chip{display:inline-flex;align-items:center;gap:6px}.chip img{width:31px;height:31px}.street-view[data-district="parque"]{background-image:url(./escena-ciudad.jpg)}#district-discussion{padding-top:12px}#district-discussion label{display:block}#environment-nav button{font-weight:650}#stage:empty{display:none}</style><header><h1>La ciudad que cambia</h1><p>Somos el equipo encargado de conocer los residuos de una ciudad. Tenemos que identificar qué se genera, dónde y qué características presenta. La ciudad irá cambiando y nuestro mapa tendrá que cambiar con ella.</p></header><section id="room"><p id="connection" role="status">Conectando con Firebase…</p><div id="access"><form id="teacher-login" class="row"><label>Correo docente <input id="email" type="email" required autocomplete="username"></label><label>Contraseña <input id="password" type="password" required autocomplete="current-password"></label><button>Entrar al panel docente</button></form><form id="teacher-session" hidden><p><label>Nombre de la sesión <input id="session-title" maxlength="100"></label> <label>Equipos <input id="team-count" type="number" value="4" min="2" max="12"></label> <button>Crear sesión</button></p><label>Identificador de una sesión <input id="existing"></label> <button type="button" id="resume">Reabrir sesión</button></form></div><section id="archive" hidden><h2>Sesiones guardadas por fecha</h2><p class="muted">Abre una carpeta y selecciona una sesión para consultar el trabajo de sus equipos.</p><div id="archive-folders">Cargando sesiones…</div></section><div id="teacher" hidden></div></section><main hidden><section><h2 id="team-score" role="status">Puntuación · 0 / 15</h2><details><summary>Roles del equipo en Zoom</summary><p><b>Portavoz</b> selecciona los ambientes y escribe. <b>Observación</b> describe los objetos. <b>Interpretación</b> propone qué cambia y por qué. <b>Comprobación</b> identifica qué datos faltan. Rotad los roles con cada incidente.</p></details><p>Por reto, 1 punto si identificáis el cambio, 2 si además lo justificáis y 3 si también indicáis qué queda por comprobar o cómo lo comprobaríais.</p></section>
+<nav id="phases" aria-label="Fases"></nav><div id="layout"><div><section><h2>Ambientes de la ciudad</h2><div id="environment-nav" class="row toolbar" aria-label="Elegir ambiente"></div><div id="stage"></div><div id="district-discussion"></div><div class="row toolbar"><button id="full">Pantalla completa</button></div></section>
+<section id="palette"><h2>Tarjetas de residuos</h2><p>Usad las tarjetas como referencia para nombrar los residuos en vuestra respuesta.</p><div id="cards" class="row"></div></section>
 </div><section id="activity" aria-live="polite"></section></div>
-<section><h2>Parte de la ciudad</h2><p class="feedback" data-feedback="general" role="status" hidden></p><div id="notes" class="notes"></div><p class="muted">La descarga es un archivo de texto con las tarjetas registradas por distrito y las anotaciones del parte.</p><div class="row"><button id="download">Descargar mapa y parte (.txt)</button><button id="reset">Reiniciar sesión</button></div></section>
+<section><h2>Parte de la ciudad</h2><p class="feedback" data-feedback="general" role="status" hidden></p><div id="notes" class="notes"></div><p class="muted">La descarga es un archivo de texto con las discusiones por ambiente, las respuestas a los imprevistos y las anotaciones del parte.</p><div class="row"><button id="download">Descargar respuestas y parte (.txt)</button><button id="reset">Reiniciar sesión</button></div></section>
 </main>
 <script>
 const phases=['Construimos la ciudad','Llegan los imprevistos','La información está incompleta','Redactamos el parte','Última sorpresa'];
@@ -42,17 +42,17 @@ function wasteIcon(control,index){
 const labels=['Sabemos','Proponemos','Necesitamos comprobar'];
 const events=[
  ['Festival en el parque','Tras el festival quedan restos de comida, vasos usados y envases de distintos materiales.',[
-  'Inspeccionad la bandeja y los vasos. Añadid al Parque las tarjetas que correspondan a lo observado.',
+  'Inspeccionad la bandeja y los vasos. Escribid en la respuesta qué residuos observáis en el Parque.',
   'Explicad por qué conviene distinguir los restos de comida, el vidrio y los plásticos. Registrad los vasos como «Vasos usados» si aún no habéis confirmado su material.',
   'Indicad qué comprobaríais para clasificar los vasos por material. Por ejemplo, buscad un marcado o consultad la ficha del producto.'
  ]],
  ['Lluvia sobre el cartón','El cartón almacenado al aire libre en el Mercado se ha mojado.',[
-  'Inspeccionad las cajas y la báscula. Conservad la tarjeta Cartón en el Mercado y anotad en «Sabemos» que está mojado.',
+  'Inspeccionad las cajas y la báscula. Anotad en «Sabemos» que el cartón del Mercado está mojado.',
   'Explicad por qué la pila puede pesar más aunque la cantidad de cartón seco sea la misma.',
   'Indicad cómo comprobaríais qué parte del peso corresponde al agua.'
  ]],
  ['Renovación del mobiliario','Las Oficinas retiran sillas metálicas, muebles de tablero y piezas de madera maciza.',[
-  'Inspeccionad la silla y el tablero. Registrad en Oficinas las tres tarjetas del lote: sillas metálicas, muebles de tablero y madera maciza. Si habíais puesto la tarjeta genérica Muebles para este lote, sustituidla por las específicas.',
+  'Inspeccionad la silla y el tablero. Anotad en la respuesta qué tres tipos de objetos se han retirado de las Oficinas.',
   'Explicad qué información sobre la composición se perdería si todo se registrara como Muebles.',
   'Indicad qué revisaríais para reconocer piezas con recubrimientos o materiales unidos entre sí.'
  ]],
@@ -70,7 +70,7 @@ const save=()=>teamSave();
 const $=id=>document.getElementById(id);
 const btn=(label,action,parent,pressed)=>{const b=document.createElement('button');b.textContent=label;b.onclick=action;if(pressed!==undefined)b.setAttribute('aria-pressed',pressed);parent.append(b);return b};
 const update=()=>{save();render()};
-let district=0,zoom=1;
+let district=0;
 const incidents=[
  ['Festival',3,15.7,13.9,[['🍽️ Bandeja','Entre los restos de comida hay plástico y vidrio.'],['🥤 Vasos','Son vasos rígidos usados. La imagen no permite confirmar de qué material están hechos ni si todos son iguales.']]],
  ['Lluvia',1,17.6,7.4,[['📦 Cajas','El cartón se quedó a la intemperie y está mojado.'],['⚖️ Báscula','La báscula registra el cartón junto con el agua que contiene.']]],
@@ -78,49 +78,45 @@ const incidents=[
  ['Mezcla de residuos',1,13.2,7.6,[['🥬 Restos','Se ven fragmentos de plástico entre los restos de comida.'],['🍾 Fragmento','También hay vidrio. La vista no permite saber qué proporción supone en toda la carga.']]],
  ['Bolsas junto al parque',3,12.3,18.1,[['🗑️ Bolsas','Las bolsas están cerradas. El contenido queda por comprobar.'],['💬 Testimonio','Un vecino dice que proceden del mercado. Su relato está pendiente de confirmar.']]]
 ];
-const motion=matchMedia('(prefers-reduced-motion: reduce)');
-let cx=10,cy=10,sceneTime=0,cameraFrame=0,incident=-1;
-function camera(index){
- cancelAnimationFrame(cameraFrame);
- const item=incidents[index], from=[cx,cy,zoom], to=item?[item[2],item[3],1.45]:[10,10,1],start=performance.now();
- function step(now){
-  sceneTime=now-start;
-  const t=motion.matches?1:1-Math.pow(1-Math.min(sceneTime/520,1),3);
-  [cx,cy,zoom]=from.map((v,i)=>v+(to[i]-v)*t);
-  draw();
-  if(!motion.matches&&sceneTime<(item?2600:520))cameraFrame=requestAnimationFrame(step);
- }
- cameraFrame=requestAnimationFrame(step);
-}
-
+let incident=-1;
 const inspectedScenes=new Map();
 const stage=$('stage');
 const streetViews=["Parque · Festival","Mercado · Lluvia","Oficinas · Renovación","Mercado · Mezcla de residuos","Parque · Bolsas cerradas"];
 const streetView=document.createElement('div');
 streetView.className='street-view';streetView.hidden=true;stage.append(streetView);
 const districtViews=[
- ['Viviendas','viviendas','Observad qué residuos pueden generarse en los hogares y anotad vuestra selección en el mapa.'],
- ['Mercado','mercado','Fijaos en los puestos, las cajas y la zona de carga. ¿Qué residuos registraríais?'],
- ['Oficinas','oficinas','Observad la entrada, el mobiliario y la actividad de trabajo. ¿Qué residuos podrían generarse?']
+ ['Viviendas','viviendas','¿Qué residuos de la escena podrían generarse en los hogares? Nombrad dos y explicad de qué actividad procedería cada uno.'],
+ ['Mercado','mercado','Observad los puestos y la zona de carga. Identificad dos residuos y explicad dónde podrían generarse.'],
+ ['Oficinas','oficinas','Observad el mobiliario y el espacio de trabajo. Identificad dos residuos posibles y explicad de dónde procederían.'],
+ ['Parque','parque','Pensad en el mantenimiento del parque y en sus visitantes. Indicad un residuo de cada origen y explicad cómo los distinguiríais.']
 ];
+function drawEnvironmentNav(){
+ const nav=$('environment-nav');nav.replaceChildren();
+ districtViews.forEach(([name],i)=>btn(name,()=>{incident=-1;district=i;showDistrict(i);drawEnvironmentNav();$('district-discussion').querySelector('textarea').focus({preventScroll:true})},nav,incident<0&&district===i));
+ if(state.phase===1)incidents.slice(0,state.revealed).forEach(([name],i)=>btn(name,()=>openIncident(i),nav,incident===i));
+ if(state.phase===4&&state.surprise)btn(incidents[4][0],()=>openIncident(4),nav,incident===4);
+}
 function showDistrict(index){
- const [name,asset,description]=districtViews[index];
+ const [name,asset,prompt]=districtViews[index];
  delete streetView.dataset.scene;
  streetView.dataset.district=asset;
  streetView.hidden=false;stage.classList.add('street-open');
  const heading=document.createElement('h3');heading.textContent=name;
- const note=document.createElement('p');note.className='street-observation district-observation';note.textContent=description;
- streetView.replaceChildren(heading,note);
- const add=btn('Ir a las tarjetas',()=>{
-  const target=$('cards').querySelector('button');if(target){target.focus({preventScroll:true});target.scrollIntoView({block:'nearest'})}
- },streetView);
- add.className='street-answer';heading.tabIndex=-1;heading.focus({preventScroll:true});
+ streetView.replaceChildren(heading);
+ const box=$('district-discussion');box.hidden=false;
+ const question=document.createElement('p');question.textContent=prompt;
+ const label=document.createElement('label');label.textContent='Discusión del equipo · '+name;
+ const area=document.createElement('textarea'), key='district'+index;
+ area.maxLength=2500;area.placeholder='Escribid las conclusiones del equipo para este ambiente.';
+ area.value=state.responses?.[key]||'';
+ area.oninput=()=>{state.responses[key]=area.value;save()};
+ label.append(area);box.replaceChildren(question,label);
 }
 function showStreet(index){ delete streetView.dataset.district;
 
  streetView.hidden=index<0;
- stage.classList.toggle('street-open',index>=0);
- if(index<0)return;
+ stage.classList.toggle('street-open',index>=0); $('district-discussion').hidden=true;
+ if(index<0){showDistrict(district);return;}
  const name=streetViews[index];
  streetView.dataset.scene=index;
  streetView.innerHTML='<h3>'+name+'</h3><div class="street-items"></div><p class="street-observation" role="status">Inspecciona los objetos destacados en la escena.</p>';
@@ -136,7 +132,7 @@ function showStreet(index){ delete streetView.dataset.district;
 }
 
 function openIncident(index){
- incident=index;district=incidents[index][1];render();showStreet(index);
+ incident=index;district=incidents[index][1];showStreet(index);drawEnvironmentNav();
  const heading=$('incident-'+index)?.querySelector('h3');
  if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});heading.scrollIntoView({block:'nearest'})}
 }
@@ -146,7 +142,7 @@ function syncStage(data){
  if(!changed)return;
  incident=data.phase===1&&data.revealed?data.revealed-1:data.phase===4&&data.surprise?4:-1;
  if(incident>=0)district=incidents[incident][1];
- render();showStreet(incident);
+ render();showStreet(incident);drawEnvironmentNav();
 }
 function inspect(container,key){
  const index=key==='final'?4:Number(key);
@@ -158,121 +154,13 @@ function inspect(container,key){
  container.append(choices,note);
 }
 
-const canvas=$('city'),c=canvas.getContext('2d');
-function draw(){
- const r=canvas.getBoundingClientRect();if(!r.width)return;
- const density=Math.min(2,devicePixelRatio||1);
- canvas.width=r.width*density;canvas.height=r.height*density;
- c.scale(canvas.width/800,canvas.height/485);
- const pt=(x,y,z=0)=>[400+((x-cx)-(y-cy))*16.4*zoom,238+((x+y-cx-cy)*8.3-z*17)*zoom];
- function poly(points,color){
- c.beginPath();points.map(p=>pt(...p)).forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));
- c.closePath();c.fillStyle=color;c.fill();if(color.length===7){c.strokeStyle="#24384b66";c.lineWidth=.65;c.stroke()}
- }
- function flat(x,y,w,d,col,z=0){poly([[x,y,z],[x+w,y,z],[x+w,y+d,z],[x,y+d,z]],col)}
- function box(x,y,w,d,z,h,colors){
- const t=z+h;
- poly([[x,y+d,z],[x+w,y+d,z],[x+w,y+d,t],[x,y+d,t]],colors[1]);
- poly([[x+w,y,z],[x+w,y+d,z],[x+w,y+d,t],[x+w,y,t]],colors[2]);
- flat(x,y,w,d,colors[0],t);
- }
- const stone=['#ffe4aa','#d7aa71','#ae794f'],tile=['#ff896b','#df564a','#ae4049'],glass=['#a3e9ef','#5baacb','#3f70a5'];
- const lots=[[1,1],[11,1],[1,11],[11,11]];
- box(0,0,20,20,-1.4,1.4,['#424d50','#27383e','#192b32']);
- lots.forEach(([x,y],i)=>box(x,y,8,8,0,.14,[['#a5c96b','#d9bb8a','#a5b7bd','#85bc67'][i],'#667569','#54675b']));
- for(let i=0;i<20;i++){if(i===9||i===10)continue;flat(i+.2,9.98,.54,.06,'#e5c481');flat(9.98,i+.2,.06,.54,'#e5c481')}
- for(let i=0;i<8;i++){flat(9.55+i*.12,8.95,.065,.48,'#e0d9bf');flat(10.55,9.55+i*.12,.48,.065,'#e0d9bf')}
- flat(11.12,14.65,7.76,.62,'#bfb798',.16);flat(14.64,11.12,.62,7.76,'#bfb798',.17);
- flat(15.65,15.65,2.55,2.08,'#365c5c',.17);flat(15.82,15.81,2.22,1.76,'#6a9798',.18);
- const objects=[];
- function put(x,y,paint){objects.push([x+y,paint])}
- function building(x,y,w,d,h,type){
- put(x+w,y+d,()=>{
- flat(x+.35,y+.43,w+.4,d+.35,'#172a3155',.15);
- box(x,y,w,d,.15,h,type===2?glass:stone);
- const n=Math.max(1,Math.floor(h/.59));
- for(let f=0;f<n;f++){
- const z=.35+f*h/n;
- for(let a=.2;a<w-.32;a+=.51)box(x+a,y+d,.3,.025,z,.24,glass.map((_,i)=>['#8aa9ac','#4a7180','#274653'][i]));
- for(let a=.2;a<d-.32;a+=.51)box(x+w,y+a,.025,.3,z,.24,['#8aa9ac','#4a7180','#274653']);
- }
- const t=.15+h;
- if(type===0){
- const mid=x+w/2;
- poly([[x-.12,y-.12,t],[mid,y,t+.67],[mid,y+d+.12,t+.67],[x-.12,y+d+.12,t]],tile[0]);
- poly([[mid,y,t+.67],[x+w+.12,y-.12,t],[x+w+.12,y+d+.12,t],[mid,y+d+.12,t+.67]],tile[1]);
- poly([[x-.12,y+d+.12,t],[mid,y+d+.12,t+.67],[x+w+.12,y+d+.12,t]],tile[2]);
- box(x+w*.65,y+.3,.23,.23,t+.3,.4,stone);
- }else{
- box(x-.08,y-.08,w+.16,d+.16,t,.13,stone);
- box(x+w*.28,y+d*.3,w*.43,d*.34,t+.13,.32,type===2?glass:tile);
- }
- });
- }
- [[1.7,1.6,2.4,2,1.5,0],[5.55,1.6,2.2,2.1,1.75,0],[2,5.15,2.45,2.2,1.58,0],[5.6,5.45,2.3,2.2,1.6,0],[11.55,1.6,6.5,3.3,1.8,1],[1.75,11.7,2.8,3.15,4.1,2],[5.25,12.55,2.75,3.25,3.15,2],[2.45,16.5,2.2,1.6,1.6,2]].forEach(v=>building(...v));
- for(let i=0;i<4;i++){
- const x=11.55+i*1.7;put(x+1,7,()=>{box(x,5.8,1.4,1.1,.15,.65,stone);for(let j=0;j<7;j++)box(x+j*.2,5.7,.2,1.3,.8,.11,j%2?stone:tile)});
- }
- [[1.55,4.55],[4.7,4.95],[8.2,4.6],[4.6,7.95],[11.4,8.15],[18.4,8.2],[1.5,17.9],[7.9,17.8],[11.8,11.8],[12.85,12.25],[13.55,13.6],[16.8,11.7],[18.3,12.8],[16.55,13.7],[12.2,16.6],[13.2,17.75],[11.8,18.25],[18.25,18.4]].forEach(([x,y],i)=>put(x,y,()=>{
- const s=.84+(i%4)*.11;
- flat(x-.18,y-.12,1.04*s,.85*s,'#0004',.16);
- box(x,y,.15,.15,.14,.78*s,['#9c7c54','#796148','#534431']);
- const [a,b]=pt(x+.08,y+.08,.98*s),radius=11*s*zoom;
- const g=c.createRadialGradient(a-radius*.32,b-radius*.43,1,a,b,radius);
- g.addColorStop(0,'#a6bd72');g.addColorStop(.55,'#60894d');g.addColorStop(1,'#31503a');
- c.fillStyle=g;[[-.45,.05,.66],[.44,.11,.66],[0,-.3,.84]].forEach(([dx,dy,k])=>{c.beginPath();c.arc(a+dx*radius,b+dy*radius,k*radius,0,Math.PI*2);c.fill()});
- }));
- if(state.revealed)put(16.5,14,()=>{box(15.7,13.85,1.15,.55,.16,.4,tile);box(16.85,14.3,.85,.32,.16,.25,stone)});
- if(state.revealed>=2)put(17.6,8,()=>box(17.6,7.4,.78,.74,.16,.45,['#9b855f','#675a44','#554a39']));
- if(state.revealed>=3)put(7.6,18,()=>box(7.6,17.3,.62,.9,.16,.52,stone));
-
- const active=incidents[incident];
- if(state.revealed>=4)put(13.2,7.6,()=>{box(13.2,7.6,.8,.7,.16,.45,['#a2db83','#529f78','#3a7255']);box(13.4,7.8,.13,.18,.61,.2,glass)});
- if(state.surprise)put(12.3,18.1,()=>{box(12.3,18.1,.45,.45,.16,.36,['#65748a','#42516a','#29354b']);box(12.8,18.3,.44,.39,.16,.31,['#728097','#4f5e76','#2d3d52'])});
-
- objects.sort((a,b)=>a[0]-b[0]).forEach(([,paint])=>paint());
- const [x,y]=lots[district];
- c.beginPath();[[x,y],[x+8,y],[x+8,y+8],[x,y+8]].forEach(([a,b],i)=>{const p=pt(a,b,.18);i?c.lineTo(...p):c.moveTo(...p)});c.closePath();c.strokeStyle='#f5c575';c.lineWidth=2;c.stroke();
-
- if(active){
-  const [, ,x,y]=active,[a,b]=pt(x,y,1);
-  const pulse=motion.matches?0:Math.sin(sceneTime/160)*2;
-  c.beginPath();c.ellipse(a,b+13,16+pulse,8,0,0,Math.PI*2);c.strokeStyle='#fff38b';c.lineWidth=3;c.stroke();
-  if(incident===1){
-   c.fillStyle='#62c6eb77';c.beginPath();c.ellipse(a,b+20,28,8,0,0,Math.PI*2);c.fill();
-   c.strokeStyle='#c6f3ff';c.lineWidth=1.7;
-   for(let n=0;n<24;n++){const u=a-54+(n*37)%108,v=b-59+(n*19+sceneTime*.19)%83;c.beginPath();c.moveTo(u,v);c.lineTo(u-5,v+12);c.stroke()}
-  }else{
-   const shades=['#ffdf6b','#ff947b','#92dfd3'];
-   for(let n=0;n<12;n++){c.fillStyle=shades[n%3];c.fillRect(a-22+n*4,b-23+Math.sin(n+sceneTime/230)*7,3,3)}
-  }
- }
-
- $('pins').replaceChildren();
- [[4,4,3.4],[15.5,4.5,3.25],[5,15.6,4.8],[15.9,16.3,1.2]].forEach(([x,y,z],i)=>{
- const [a,b]=pt(x,y,z);
- const count=state.map[i].length;
- const pin=btn(zones[i]+(count?' · '+count:''),()=>{district=i;render();if(districtViews[i])showDistrict(i);else $('pins').children[i].focus()},$('pins'),district===i);
- pin.style.left=a/8+'%';pin.style.top=b/4.85+'%';
- });
-
- incidents.forEach(([name,zone,x,y],index)=>{
-  if(index===4?state.phase!==4||!state.surprise:state.phase!==1||state.revealed<=index)return;
-  const [a,b]=pt(x,y,1.15);
-  if(a<35||a>765||b<18||b>465)return;
-  const pin=btn('🔎 '+name,()=>openIncident(index),$('pins'),index===incident);
-  pin.className='incident-pin';pin.style.left=a/8+'%';pin.style.top=b/4.85+'%';
- });
-
-}
-$('zoom').onclick=()=>{showStreet(-1);camera(-1)};
 $('full').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{$('full').textContent='Pantalla completa no disponible'}};
 new ResizeObserver(draw).observe(canvas);
 
 function render(){
  $('phases').replaceChildren();phases.forEach((p,i)=>btn(p,()=>{state.phase=i;update()},$('phases'),state.phase===i));
  const activity=$('activity');activity.innerHTML='<h2>'+phases[state.phase]+'</h2>';
- const prompts=['Propón en el chat un residuo, una zona y una razón. Ejemplo de respuesta: «En el mercado podría haber cartón por las cajas de transporte».','En cada imprevisto, inspeccionad los objetos. Si la consigna os pide cambiar el mapa, elegid el distrito, seleccionad la tarjeta de residuo y pulsad «Añadir». Para retirar una tarjeta, pulsad su ×. Si cambia el estado de un residuo, como el cartón mojado, anotadlo en el parte. En «Respuesta del equipo» escribid tres frases: qué registrasteis, por qué y qué comprobaríais.','¿Qué dato pedirías sobre el cartón mojado, los muebles y los restos alimentarios mezclados? Indica para qué te serviría en cada caso.','Acordad dos cambios del mapa, una incertidumbre y un dato que recogeríais. Indicad la zona en cada anotación.','Decidid qué cambiar en el mapa o en el parte y registrad vuestra justificación.'];
+ const prompts=['Elegid un ambiente, observad la escena y anotad los residuos que podrían generarse allí. Repetidlo en los demás ambientes.','En cada imprevisto, inspeccionad los objetos. Registrad lo que observáis en la caja del imprevisto o en el parte, según la consigna. En «Respuesta del equipo» escribid tres frases: qué registrasteis, por qué y qué comprobaríais.','¿Qué dato pedirías sobre el cartón mojado, los muebles y los restos alimentarios mezclados? Indica para qué te serviría en cada caso.','Acordad dos observaciones de los ambientes, una incertidumbre y un dato que recogeríais. Indicad la zona en cada anotación.','Anotad la observación en el parte y registrad vuestra justificación.'];
  activity.insertAdjacentHTML('beforeend','<p>'+prompts[state.phase]+'</p>');
  if(state.phase===1){
  events.slice(0,state.revealed).reverse().forEach(([title,story,steps])=>{
@@ -298,14 +186,8 @@ function render(){
  if(!state.surprise){ activity.insertAdjacentHTML('beforeend','<p>Esperad a que la docente revele la sorpresa.</p>'); }
  else activity.insertAdjacentHTML('beforeend','<div class="event"><h3>Bolsas junto al parque</h3><p>A la mañana siguiente aparecen bolsas cerradas junto a la entrada del parque. Un vecino dice que llegaron del mercado.</p><p>¿Dónde registrarías el hallazgo? ¿Qué puedes afirmar sobre su origen y contenido? Añade una observación y un dato que comprobarías.</p></div>');
  }
- if(state.phase===1) Array.from(activity.querySelectorAll('.event')).forEach((node,i)=>answer(node,state.revealed-1-i)); if(state.phase===4&&state.surprise)answer(activity.querySelector('.event'),'final'); $('cards').replaceChildren();cards.slice(0,state.revealed>=3?11:state.revealed>=1?8:7).forEach((card,i)=>wasteIcon(btn(card,()=>{chosen=i;render();$('cards').children[i].focus({preventScroll:true})},$('cards'),chosen===i),i));
- $('map').replaceChildren();zones.forEach((zone,i)=>{
- const panel=document.createElement('article');panel.hidden=i!==district;panel.innerHTML='<h3>'+zone+'</h3>';
- const items=document.createElement('div');panel.append(items);
- state.map[i].forEach(j=>{const b=btn(cards[j]+' ×',()=>{state.map[i]=state.map[i].filter(k=>k!==j);update()},items);b.className='chip';wasteIcon(b,j);b.setAttribute('aria-label','Retirar '+cards[j]+' de '+zone)});
- const add=btn('Añadir '+cards[chosen],()=>{state.map[i].push(chosen);update()},panel);add.disabled=state.map[i].includes(chosen);add.title=cards[chosen];
- $('map').append(panel);
- }); draw();
+ if(state.phase===1) Array.from(activity.querySelectorAll('.event')).forEach((node,i)=>answer(node,state.revealed-1-i)); if(state.phase===4&&state.surprise)answer(activity.querySelector('.event'),'final'); $('cards').replaceChildren();cards.slice(0,state.revealed>=3?11:state.revealed>=1?8:7).forEach((card,i)=>{const tile=document.createElement('div');tile.className='waste-tile';tile.textContent=card;wasteIcon(tile,i);$('cards').append(tile)});
+ drawEnvironmentNav();
 }
 labels.forEach((label,i)=>{
  const field=document.createElement('label');field.textContent=label;
@@ -314,7 +196,7 @@ labels.forEach((label,i)=>{
 });
 $('reset').onclick=()=>{if(confirm('¿Borrar el mapa, el parte y las pistas abiertas?')){state=initial();chosen=0;document.querySelectorAll('textarea').forEach(x=>x.value='');update()}};
 $('download').onclick=()=>{
- const output=['La ciudad que cambia','MAPA',...zones.map((z,i)=>z+' · '+(state.map[i].map(j=>cards[j]).join(', ')||'Sin tarjetas')), 'PARTE',...labels.map((l,i)=>l+'\n'+(state.notes[i]||'Sin anotaciones')), ...(state.goal?['Pregunta sobre la carga\n'+state.goal]:[])].join('\n\n');
+ const output=['La ciudad que cambia','AMBIENTES',...districtViews.map(([name],i)=>name+' · '+(state.responses?.['district'+i]||'Sin respuesta')), 'IMPREVISTOS',...events.map(([title],i)=>title+' · '+(state.responses?.[i]||'Sin respuesta')), 'Bolsas junto al parque · '+(state.responses?.final||'Sin respuesta'), 'PARTE',...labels.map((l,i)=>l+'\n'+(state.notes[i]||'Sin anotaciones')), ...(state.goal?['Pregunta sobre la carga\n'+state.goal]:[])].join('\n\n');
  const url=URL.createObjectURL(new Blob([output],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Parte_de_la_ciudad.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 };
 
@@ -328,11 +210,11 @@ window.cityTeam={
  load(work){
   state={...initial(),...work,map:[0,1,2,3].map(i=>work.map[i]||[]),responses:work.responses||{}};
   document.querySelectorAll('#notes textarea').forEach((el,i)=>el.value=state.notes[i]);
-  priorWork=pack();render();
+  priorWork=pack();render();showStreet(incident);
  },
  stage:syncStage,
  summary(w,feedback){
- return [scoreText(feedback),...zones.map((z,i)=>z+' · '+(w.map[i]||[]).map(j=>cards[j]).join(', ')),
+ return [scoreText(feedback),...districtViews.map(([name],i)=>name+' · '+(w.responses?.['district'+i]||'Pendiente')),
  ...events.map(([title],i)=>title+' · '+(w.responses?.[i]||'Pendiente')),
  'Sorpresa final · '+(w.responses?.final||'Pendiente'),
  'Pregunta · '+w.goal,'Sobres · '+w.opened.map(i=>envelopes[i][0]).join(', '),
@@ -378,6 +260,8 @@ function answer(container,key){ inspect(container,key);
 }
 
 render();</script><script type="module" src="./sync.js?v=4"></script></html>
+
+
 
 
 
