@@ -29,11 +29,10 @@ header{background:linear-gradient(90deg,#101d2af5 10%,#152739e8 49%,#0e1e2f40),u
 <nav id="phases" aria-label="Fases"></nav><div id="layout"><div><section><h2>Mapa de la ciudad</h2><div id="stage"><canvas id="city" role="img" aria-label="Ciudad en perspectiva isométrica"></canvas><div id="pins"></div></div><div class="row toolbar"><button id="zoom">Vista general</button><button id="full">Pantalla completa</button></div><p class="muted">Selecciona Viviendas, Mercado u Oficinas para entrar en su escena. Usa «Vista general» para volver al mapa.</p><div id="map" class="map"></div></section>
 <section id="palette"><h2>Tarjetas de residuos</h2><p>Selecciona una tarjeta y pulsa «Añadir» en el distrito seleccionado. Puedes repetirla en varias zonas. Pulsa × en una tarjeta del mapa para retirarla.</p><div id="cards" class="row"></div></section>
 </div><section id="activity" aria-live="polite"></section></div>
-<section><h2>Parte de la ciudad</h2><p class="feedback" data-feedback="general" role="status" hidden></p><div id="notes" class="notes"></div><div class="row"><button id="download">Descargar mapa y parte</button><button id="reset">Reiniciar sesión</button></div></section>
-<details><summary>Guía de facilitación · 60 minutos</summary><ol><li><b>0–10 min.</b> Presenta la misión y construye el mapa. Pide a cada persona que proponga en el chat una combinación zona–residuo y su motivo. Recoge coincidencias y una propuesta menos evidente.</li><li><b>10–30 min.</b> Dedica 5 min a cada imprevisto. Da 30 segundos de escritura individual, pide enviar a la vez, compara dos respuestas y actualiza el mapa o el parte.</li><li><b>30–45 min.</b> Dedica 5 min a decidir qué dato falta para cada uno de los tres residuos y 10 min a la carga misteriosa. Formula un objetivo antes de votar los dos sobres. Al comparar resultados, pide una afirmación respaldada y una pendiente. Si queda tiempo, abre los restantes.</li><li><b>45–55 min.</b> Acordad dos cambios, una incertidumbre y un dato que recogeríais. Anotad las zonas afectadas y guardad el parte.</li><li><b>55–60 min.</b> Revela la sorpresa, pide una respuesta individual y acordad una última edición. Descarga la versión final.</li></ol><p>Comparte la ventana del navegador. Tú editas la pizarra y la clase decide por voz o chat. Las cantidades de la carga misteriosa son datos simulados ya definidos.</p><details><summary>Orientaciones para el cierre</summary><p>Festival: separar los tipos y comprobar si los vasos se pueden recuperar para reutilización. Lluvia: sube la humedad y puede aumentar la masa húmeda sin aumentar la masa seca. Mobiliario: distinguir metal, madera maciza y tablero, y verificar recubrimientos o mezclas. Bolsa: vidrio y plástico son impropios en esa corriente y la inspección visual tiene un alcance limitado.</p><p>Carga: con 60 % de humedad en base húmeda, 1.000 kg contienen 400 kg de materia seca total. Esa materia seca incluye los materiales no biomásicos presentes. La composición cualitativa permite reconocer materiales de origen biológico, pero hace falta cuantificarlos para estimar su proporción.</p><p>Sorpresa: la recogida se registra en el parque. El origen de las bolsas se comprueba, y se revisa su contenido antes de clasificarlo.</p></details></details></main>
+<section><h2>Parte de la ciudad</h2><p class="feedback" data-feedback="general" role="status" hidden></p><div id="notes" class="notes"></div><p class="muted">La descarga es un archivo de texto con las tarjetas registradas por distrito y las anotaciones del parte.</p><div class="row"><button id="download">Descargar mapa y parte (.txt)</button><button id="reset">Reiniciar sesión</button></div></section>
+</main>
 <script>
 const phases=['Construimos la ciudad','Llegan los imprevistos','La información está incompleta','Redactamos el parte','Última sorpresa'];
-const minutes=[10,20,15,10,5];
 const zones=['🏘️ Viviendas','🛒 Mercado','🏢 Oficinas','🌳 Parque'];
 const cards=['🍎 Restos alimentarios','📦 Cartón','🍾 Vidrio','🧴 Envases de plástico','🌿 Poda','🪑 Muebles','👕 Textiles','🥤 Vasos reutilizables','🪑 Sillas metálicas','🪵 Muebles de tablero','🪵 Madera maciza'];
 const labels=['Sabemos','Proponemos','Necesitamos comprobar'];
@@ -267,9 +266,9 @@ $('full').onclick=async()=>{try{if(document.fullscreenElement)await document.exi
 new ResizeObserver(draw).observe(canvas);
 
 function render(){
- $('phases').replaceChildren();phases.forEach((p,i)=>btn(p+' · '+minutes[i]+' min',()=>{state.phase=i;update()},$('phases'),state.phase===i));
+ $('phases').replaceChildren();phases.forEach((p,i)=>btn(p,()=>{state.phase=i;update()},$('phases'),state.phase===i));
  const activity=$('activity');activity.innerHTML='<h2>'+phases[state.phase]+'</h2>';
- const prompts=['Propón en el chat un residuo, una zona y una razón. Ejemplo de respuesta: «En el mercado podría haber cartón por las cajas de transporte».','En cada imprevisto, inspeccionad los objetos y actualizad el mapa o el parte según la consigna. En «Respuesta del equipo» escribid tres frases: qué registrasteis, por qué y qué comprobaríais.','¿Qué dato pedirías sobre el cartón mojado, los muebles y los restos alimentarios mezclados? Indica para qué te serviría en cada caso.','Acordad dos cambios del mapa, una incertidumbre y un dato que recogeríais. Indicad la zona en cada anotación.','Decidid qué cambiar en el mapa o en el parte y registrad vuestra justificación.'];
+ const prompts=['Propón en el chat un residuo, una zona y una razón. Ejemplo de respuesta: «En el mercado podría haber cartón por las cajas de transporte».','En cada imprevisto, inspeccionad los objetos. Si la consigna os pide cambiar el mapa, elegid el distrito, seleccionad la tarjeta de residuo y pulsad «Añadir». Para retirar una tarjeta, pulsad su ×. Si cambia el estado de un residuo, como el cartón mojado, anotadlo en el parte. En «Respuesta del equipo» escribid tres frases: qué registrasteis, por qué y qué comprobaríais.','¿Qué dato pedirías sobre el cartón mojado, los muebles y los restos alimentarios mezclados? Indica para qué te serviría en cada caso.','Acordad dos cambios del mapa, una incertidumbre y un dato que recogeríais. Indicad la zona en cada anotación.','Decidid qué cambiar en el mapa o en el parte y registrad vuestra justificación.'];
  activity.insertAdjacentHTML('beforeend','<p>'+prompts[state.phase]+'</p>');
  if(state.phase===1){
  events.slice(0,state.revealed).reverse().forEach(([title,story,steps])=>{
@@ -375,6 +374,7 @@ function answer(container,key){ inspect(container,key);
 }
 
 render();</script><script type="module" src="./sync.js?v=4"></script></html>
+
 
 
 
