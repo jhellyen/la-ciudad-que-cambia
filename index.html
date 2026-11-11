@@ -1,0 +1,222 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>La ciudad que cambia</title><style>
+*{box-sizing:border-box}body{margin:0;background:#f7f3e8;color:#172e29;font:17px system-ui}header{background:#143a32;color:white;padding:24px max(4vw,16px)}h1{margin:0;font: bold clamp(34px,5vw,62px) Georgia}header p{max-width:860px}main{max-width:1280px;margin:auto;padding:20px}nav,.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}button,select,input,textarea{font:inherit}button,select{padding:8px 12px;border:1px solid #74867c;border-radius:8px;background:white;color:#172e29}button{cursor:pointer}button[aria-pressed=true],.primary{background:#23634e;color:white}button:disabled{opacity:.55;cursor:default}section,article,details{background:white;padding:16px;border-radius:14px;border:1px solid #ddd9cc;margin:12px 0}h2,h3,p{margin:0 0 10px}.map,.notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.map article{margin:0;min-height:140px;background:#e6eee2;border:3px solid white}.map article:nth-child(2){background:#f6e1c5}.map article:nth-child(3){background:#dce9ef}.map article:nth-child(4){background:#d5e7ce}.chip{font-size:.88em;margin:3px}textarea{width:100%;min-height:105px;padding:10px;border:1px solid #86958c;border-radius:8px}summary{cursor:pointer;font-weight:bold}.notes{grid-template-columns:repeat(3,minmax(0,1fr))}.event{border-left:5px solid #c48038;padding:10px;margin-top:12px;background:#fff8e8}.muted{color:#485e54}@media(max-width:650px){.map,.notes{grid-template-columns:1fr}}@media print{button,select,nav,#activity,header p,details,#palette{display:none!important}textarea{height:180px}}
+body{background:#101e23;color:#ecf4ee}header{background:linear-gradient(110deg,#14282f,#2a5048)}h1{font-family:system-ui;letter-spacing:-.06em}section,details,.map article:nth-child(n){background:#1b3036;border-color:#39575a;color:#ecf4ee}button,textarea,input{background:#182a30;color:#f4f6ee;border:1px solid #6b8588}button[aria-pressed=true],.primary{background:#f5c575;color:#19272b;font-weight:bold}button:hover:not(:disabled){border-color:#f5c575}.event{background:#342d24}.muted{color:#bad0c8}#layout{display:grid;grid-template-columns:2fr 1fr;gap:12px;align-items:start}#stage{position:relative;overflow:hidden;background:radial-gradient(ellipse,#47676a,#15262c 72%);aspect-ratio:1.65;border-radius:12px}canvas{width:100%;height:100%;display:block}#pins{position:absolute;inset:0;pointer-events:none}#pins button{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;box-shadow:0 3px 12px #0009;font-size:clamp(11px,1.25vw,15px);padding:5px 8px;white-space:nowrap}.toolbar{margin:9px 0}.map{grid-template-columns:1fr}.map article{min-height:0}.map article[hidden]{display:none}#cards button{font-size:.85em}@media(max-width:850px){#layout{display:block}}@media print{#layout{display:block}.map article[hidden]{display:block}body,section,textarea{background:white;color:#19272b}}[hidden]{display:none!important}#room{margin:16px auto;max-width:1240px}#teacher pre{white-space:pre-wrap;font:inherit}#teacher a{color:#f5c575;margin-right:10px}.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:12px}.team-grid article{margin:0;background:#20383b;color:#edf5ef;border-color:#567474}.team-grid pre{max-height:240px;overflow:auto;padding:10px;background:#15262c;border-radius:8px}.team-grid form{display:flex;gap:6px;flex-wrap:wrap}.team-grid select{max-width:100%;background:#20383b;color:white}.team-grid textarea{min-height:65px}.feedback{padding:9px;background:#4a3820;border-left:4px solid #f5c575}</style><header><h1>La ciudad que cambia</h1><p>Somos el equipo encargado de conocer los residuos de una ciudad. Tenemos que identificar qué se genera, dónde y qué características presenta. La ciudad irá cambiando y nuestro mapa tendrá que cambiar con ella.</p></header><section id="room"><p id="connection" role="status">Conectando con Firebase…</p><div id="access"><form id="teacher-login" class="row"><label>Correo docente <input id="email" type="email" required autocomplete="username"></label><label>Contraseña <input id="password" type="password" required autocomplete="current-password"></label><button>Entrar al panel docente</button></form><form id="teacher-session" hidden><p><label>Nombre de la sesión <input id="session-title" maxlength="100"></label> <label>Equipos <input id="team-count" type="number" value="4" min="2" max="12"></label> <button>Crear sesión</button></p><label>Identificador de una sesión <input id="existing"></label> <button type="button" id="resume">Reabrir sesión</button></form></div><div id="teacher" hidden></div></section><main hidden><section><h2 id="team-score" role="status">Puntuación · 0 / 15</h2><p>Por reto, 1 punto si identificáis el cambio, 2 si además lo justificáis y 3 si también indicáis qué queda por comprobar o cómo lo comprobaríais.</p></section>
+<nav id="phases" aria-label="Fases"></nav><div id="layout"><div><section><h2>Mapa de la ciudad</h2><div id="stage"><canvas id="city" role="img" aria-label="Ciudad en perspectiva isométrica"></canvas><div id="pins"></div></div><div class="row toolbar"><button id="zoom">Acercar</button><button id="full">Pantalla completa</button></div><p class="muted">Selecciona un distrito. El número indica los tipos registrados.</p><div id="map" class="map"></div></section>
+<section id="palette"><h2>Tarjetas de residuos</h2><p>Selecciona una tarjeta y pulsa «Añadir» en el distrito seleccionado. Puedes repetirla en varias zonas. Pulsa × en una tarjeta del mapa para retirarla.</p><div id="cards" class="row"></div></section>
+</div><section id="activity" aria-live="polite"></section></div>
+<section><h2>Parte de la ciudad</h2><p class="feedback" data-feedback="general" role="status" hidden></p><div id="notes" class="notes"></div><div class="row"><button id="download">Descargar mapa y parte</button><button id="reset">Reiniciar sesión</button></div></section>
+<details><summary>Guía de facilitación · 60 minutos</summary><ol><li><b>0–10 min.</b> Presenta la misión y construye el mapa. Pide a cada persona que proponga en el chat una combinación zona–residuo y su motivo. Recoge coincidencias y una propuesta menos evidente.</li><li><b>10–30 min.</b> Dedica 5 min a cada imprevisto. Da 30 segundos de escritura individual, pide enviar a la vez, compara dos respuestas y actualiza el mapa o el parte.</li><li><b>30–45 min.</b> Dedica 5 min a decidir qué dato falta para cada uno de los tres residuos y 10 min a la carga misteriosa. Formula un objetivo antes de votar los dos sobres. Al comparar resultados, pide una afirmación respaldada y una pendiente. Si queda tiempo, abre los restantes.</li><li><b>45–55 min.</b> Acordad dos cambios, una incertidumbre y un dato que recogeríais. Anotad las zonas afectadas y guardad el parte.</li><li><b>55–60 min.</b> Revela la sorpresa, pide una respuesta individual y acordad una última edición. Descarga la versión final.</li></ol><p>Comparte la ventana del navegador. Tú editas la pizarra y la clase decide por voz o chat. Las cantidades de la carga misteriosa son datos simulados ya definidos.</p><details><summary>Orientaciones para el cierre</summary><p>Festival: separar los tipos y comprobar si los vasos se pueden recuperar para reutilización. Lluvia: sube la humedad y puede aumentar la masa húmeda sin aumentar la masa seca. Mobiliario: distinguir metal, madera maciza y tablero, y verificar recubrimientos o mezclas. Bolsa: vidrio y plástico son impropios en esa corriente y la inspección visual tiene un alcance limitado.</p><p>Carga: con 60 % de humedad en base húmeda, 1.000 kg contienen 400 kg de materia seca total. Esa materia seca incluye los materiales no biomásicos presentes. La composición cualitativa permite reconocer materiales de origen biológico, pero hace falta cuantificarlos para estimar su proporción.</p><p>Sorpresa: la recogida se registra en el parque. El origen de las bolsas se comprueba, y se revisa su contenido antes de clasificarlo.</p></details></details></main>
+<script>
+const phases=['Construimos la ciudad','Llegan los imprevistos','La información está incompleta','Redactamos el parte','Última sorpresa'];
+const minutes=[10,20,15,10,5];
+const zones=['🏘️ Viviendas','🛒 Mercado','🏢 Oficinas','🌳 Parque'];
+const cards=['🍎 Restos alimentarios','📦 Cartón','🍾 Vidrio','🧴 Envases de plástico','🌿 Poda','🪑 Muebles','👕 Textiles','🥤 Vasos reutilizables','🪑 Sillas metálicas','🪵 Muebles de tablero','🪵 Madera maciza'];
+const labels=['Sabemos','Proponemos','Necesitamos comprobar'];
+const events=[
+['Festival en el parque','Aparecen restos de comida, vasos reutilizables abandonados y envases de distintos materiales.','¿Qué diferencias ocultaría agruparlos como «residuos del festival»? ¿Qué añadirías al parque y qué comprobarías sobre los vasos?'],
+['Lluvia sobre el cartón','Llueve sobre el cartón del mercado que estaba almacenado al aire libre.','¿Qué propiedad cambia? Si pesa más, ¿hay más cartón seco? Registra el cambio junto a la zona.'],
+['Renovación del mobiliario','Las oficinas retiran sillas metálicas, muebles de tablero y piezas de madera maciza.','¿Por qué «muebles» es insuficiente? Si ya hay una tarjeta genérica, decide si conviene sustituirla.'],
+['Una bolsa rompe la separación','En el mercado, entre los restos alimentarios aparecen vidrio y plástico.','¿Cómo cambia la calidad de la corriente? ¿Qué puede decirnos una inspección visual? Anota que están mezclados con los restos.']
+];
+const envelopes=[['Procedencia','La carga se recogió en el mercado tras el cierre. No consta de qué puestos procede.'],['Humedad','La muestra representativa tiene un 60 % de humedad en base húmeda.'],['Composición','El muestreo identifica restos vegetales, cartón, plástico y vidrio. No aporta proporciones por material.'],['Impropios','Se observan fragmentos de vidrio y plástico en una carga destinada a la recogida de restos alimentarios. No se ha cuantificado su proporción.']];
+const initial=()=>({map:[[],[],[],[]],notes:['','',''],opened:[],phase:0,revealed:0,extra:false,surprise:false,goal:''});
+let state=initial(),chosen=0;
+state.responses={};
+const save=()=>teamSave();
+const $=id=>document.getElementById(id);
+const btn=(label,action,parent,pressed)=>{const b=document.createElement('button');b.textContent=label;b.onclick=action;if(pressed!==undefined)b.setAttribute('aria-pressed',pressed);parent.append(b);return b};
+const update=()=>{save();render()};
+let district=0,zoom=1;
+const canvas=$('city'),c=canvas.getContext('2d');
+function draw(){
+ const r=canvas.getBoundingClientRect();if(!r.width)return;
+ const density=Math.min(2,devicePixelRatio||1);
+ canvas.width=r.width*density;canvas.height=r.height*density;
+ c.scale(canvas.width/800,canvas.height/485);
+ const pt=(x,y,z=0)=>[400+(x-y)*16.4*zoom,238+((x+y-20)*8.3-z*17)*zoom];
+ function poly(points,color){
+ c.beginPath();points.map(p=>pt(...p)).forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));
+ c.closePath();c.fillStyle=color;c.fill();
+ }
+ function flat(x,y,w,d,col,z=0){poly([[x,y,z],[x+w,y,z],[x+w,y+d,z],[x,y+d,z]],col)}
+ function box(x,y,w,d,z,h,colors){
+ const t=z+h;
+ poly([[x,y+d,z],[x+w,y+d,z],[x+w,y+d,t],[x,y+d,t]],colors[1]);
+ poly([[x+w,y,z],[x+w,y+d,z],[x+w,y+d,t],[x+w,y,t]],colors[2]);
+ flat(x,y,w,d,colors[0],t);
+ }
+ const stone=['#c9c3a9','#9c9783','#746f64'],tile=['#b96648','#87442e','#693a2d'],glass=['#a6bdbb','#62848d','#405d68'];
+ const lots=[[1,1],[11,1],[1,11],[11,11]];
+ box(0,0,20,20,-1.4,1.4,['#424d50','#27383e','#192b32']);
+ lots.forEach(([x,y],i)=>box(x,y,8,8,0,.14,[['#82966d','#a39b8d','#919e92','#6c884f'][i],'#667569','#54675b']));
+ for(let i=0;i<20;i++){if(i===9||i===10)continue;flat(i+.2,9.98,.54,.06,'#e5c481');flat(9.98,i+.2,.06,.54,'#e5c481')}
+ for(let i=0;i<8;i++){flat(9.55+i*.12,8.95,.065,.48,'#e0d9bf');flat(10.55,9.55+i*.12,.48,.065,'#e0d9bf')}
+ flat(11.12,14.65,7.76,.62,'#bfb798',.16);flat(14.64,11.12,.62,7.76,'#bfb798',.17);
+ flat(15.65,15.65,2.55,2.08,'#365c5c',.17);flat(15.82,15.81,2.22,1.76,'#6a9798',.18);
+ const objects=[];
+ function put(x,y,paint){objects.push([x+y,paint])}
+ function building(x,y,w,d,h,type){
+ put(x+w,y+d,()=>{
+ flat(x+.35,y+.43,w+.4,d+.35,'#172a3155',.15);
+ box(x,y,w,d,.15,h,type===2?glass:stone);
+ const n=Math.max(1,Math.floor(h/.59));
+ for(let f=0;f<n;f++){
+ const z=.35+f*h/n;
+ for(let a=.2;a<w-.32;a+=.51)box(x+a,y+d,.3,.025,z,.24,glass.map((_,i)=>['#8aa9ac','#4a7180','#274653'][i]));
+ for(let a=.2;a<d-.32;a+=.51)box(x+w,y+a,.025,.3,z,.24,['#8aa9ac','#4a7180','#274653']);
+ }
+ const t=.15+h;
+ if(type===0){
+ const mid=x+w/2;
+ poly([[x-.12,y-.12,t],[mid,y,t+.67],[mid,y+d+.12,t+.67],[x-.12,y+d+.12,t]],tile[0]);
+ poly([[mid,y,t+.67],[x+w+.12,y-.12,t],[x+w+.12,y+d+.12,t],[mid,y+d+.12,t+.67]],tile[1]);
+ poly([[x-.12,y+d+.12,t],[mid,y+d+.12,t+.67],[x+w+.12,y+d+.12,t]],tile[2]);
+ box(x+w*.65,y+.3,.23,.23,t+.3,.4,stone);
+ }else{
+ box(x-.08,y-.08,w+.16,d+.16,t,.13,stone);
+ box(x+w*.28,y+d*.3,w*.43,d*.34,t+.13,.32,type===2?glass:tile);
+ }
+ });
+ }
+ [[1.7,1.6,2.4,2,1.5,0],[5.55,1.6,2.2,2.1,1.75,0],[2,5.15,2.45,2.2,1.58,0],[5.6,5.45,2.3,2.2,1.6,0],[11.55,1.6,6.5,3.3,1.8,1],[1.75,11.7,2.8,3.15,4.1,2],[5.25,12.55,2.75,3.25,3.15,2],[2.45,16.5,2.2,1.6,1.6,2]].forEach(v=>building(...v));
+ for(let i=0;i<4;i++){
+ const x=11.55+i*1.7;put(x+1,7,()=>{box(x,5.8,1.4,1.1,.15,.65,stone);for(let j=0;j<7;j++)box(x+j*.2,5.7,.2,1.3,.8,.11,j%2?stone:tile)});
+ }
+ [[1.55,4.55],[4.7,4.95],[8.2,4.6],[4.6,7.95],[11.4,8.15],[18.4,8.2],[1.5,17.9],[7.9,17.8],[11.8,11.8],[12.85,12.25],[13.55,13.6],[16.8,11.7],[18.3,12.8],[16.55,13.7],[12.2,16.6],[13.2,17.75],[11.8,18.25],[18.25,18.4]].forEach(([x,y],i)=>put(x,y,()=>{
+ const s=.84+(i%4)*.11;
+ flat(x-.18,y-.12,1.04*s,.85*s,'#0004',.16);
+ box(x,y,.15,.15,.14,.78*s,['#9c7c54','#796148','#534431']);
+ const [a,b]=pt(x+.08,y+.08,.98*s),radius=11*s*zoom;
+ const g=c.createRadialGradient(a-radius*.32,b-radius*.43,1,a,b,radius);
+ g.addColorStop(0,'#a6bd72');g.addColorStop(.55,'#60894d');g.addColorStop(1,'#31503a');
+ c.fillStyle=g;[[-.45,.05,.66],[.44,.11,.66],[0,-.3,.84]].forEach(([dx,dy,k])=>{c.beginPath();c.arc(a+dx*radius,b+dy*radius,k*radius,0,Math.PI*2);c.fill()});
+ }));
+ if(state.revealed)put(16.5,14,()=>{box(15.7,13.85,1.15,.55,.16,.4,tile);box(16.85,14.3,.85,.32,.16,.25,stone)});
+ if(state.revealed>=2)put(17.6,8,()=>box(17.6,7.4,.78,.74,.16,.45,['#9b855f','#675a44','#554a39']));
+ if(state.revealed>=3)put(7.6,18,()=>box(7.6,17.3,.62,.9,.16,.52,stone));
+ objects.sort((a,b)=>a[0]-b[0]).forEach(([,paint])=>paint());
+ const [x,y]=lots[district];
+ c.beginPath();[[x,y],[x+8,y],[x+8,y+8],[x,y+8]].forEach(([a,b],i)=>{const p=pt(a,b,.18);i?c.lineTo(...p):c.moveTo(...p)});c.closePath();c.strokeStyle='#f5c575';c.lineWidth=2;c.stroke();
+ $('pins').replaceChildren();
+ [[4,4,3.4],[15.5,4.5,3.25],[5,15.6,4.8],[15.9,16.3,1.2]].forEach(([x,y,z],i)=>{
+ const [a,b]=pt(x,y,z);
+ const count=state.map[i].length;
+ const pin=btn(zones[i]+(count?' · '+count:''),()=>{district=i;render();$('pins').children[i].focus()},$('pins'),district===i);
+ pin.style.left=a/8+'%';pin.style.top=b/4.85+'%';
+ });
+}
+$('zoom').onclick=()=>{zoom=zoom===1?1.12:1;$('zoom').textContent=zoom===1?'Acercar':'Alejar';draw()};
+$('full').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{$('full').textContent='Pantalla completa no disponible'}};
+new ResizeObserver(draw).observe(canvas);
+
+function render(){
+ $('phases').replaceChildren();phases.forEach((p,i)=>btn(p+' · '+minutes[i]+' min',()=>{state.phase=i;update()},$('phases'),state.phase===i));
+ const activity=$('activity');activity.innerHTML='<h2>'+phases[state.phase]+'</h2>';
+ const prompts=['Propón en el chat un residuo, una zona y una razón. Ejemplo de respuesta: «En el mercado podría haber cartón por las cajas de transporte».','Debatid en equipo y escribid vuestra propuesta debajo de cada imprevisto.','¿Qué dato pedirías sobre el cartón mojado, los muebles y los restos alimentarios mezclados? Indica para qué te serviría en cada caso.','Acordad dos cambios del mapa, una incertidumbre y un dato que recogeríais. Indicad la zona en cada anotación.','Decidid qué cambiar en el mapa o en el parte y registrad vuestra justificación.'];
+ activity.insertAdjacentHTML('beforeend','<p>'+prompts[state.phase]+'</p>');
+ if(state.phase===1){
+ events.slice(0,state.revealed).reverse().forEach(([title,story,q])=>activity.insertAdjacentHTML('beforeend','<div class="event"><h3>'+title+'</h3><p>'+story+'</p><p>'+q+'</p></div>'));
+ }
+ if(state.phase===2){
+ activity.insertAdjacentHTML('beforeend','<div class="event"><h3>Una tonelada de residuos de composición desconocida</h3><p>Elegid una pregunta antes de votar qué dos sobres abrir. Por ejemplo, ¿cuánta materia seca contiene la carga? o ¿qué materiales de origen biológico contiene?</p><label>Pregunta de la clase <input id="goal" maxlength="220"></label><p id="count"></p><div class="row" id="envelopes"></div><div id="evidence"></div></div>');
+ $('goal').value=state.goal;$('goal').oninput=e=>{state.goal=e.target.value;save()};
+ $('count').textContent='Sobres abiertos: '+state.opened.length+' de '+(state.extra?4:2);
+ envelopes.forEach(([name,data],i)=>{
+ const open=state.opened.includes(i);
+ const b=btn((open?'✓ ':'✉ ')+name,()=>{state.opened.push(i);update()},$('envelopes'));b.disabled=open||(!state.extra&&state.opened.length>=2);
+ if(open)$('evidence').insertAdjacentHTML('beforeend','<p><strong>'+name+'</strong> · '+data+'</p>');
+ });
+ if(state.opened.length>=2){
+ $('evidence').insertAdjacentHTML('beforeend','<p><strong>¿Qué sabemos ahora y qué sigue sin poder afirmarse?</strong> Anotad una respuesta respaldada y un dato pendiente en el parte.</p>');
+ if(!state.extra)btn('Abrir segunda ronda tras el debate',()=>{state.extra=true;update()},$('evidence'));
+ }
+ }
+ if(state.phase===4){
+ if(!state.surprise){ activity.insertAdjacentHTML('beforeend','<p>Esperad a que la docente revele la sorpresa.</p>'); }
+ else activity.insertAdjacentHTML('beforeend','<div class="event"><h3>Bolsas junto al parque</h3><p>A la mañana siguiente aparecen bolsas cerradas junto a la entrada del parque. Un vecino dice que llegaron del mercado.</p><p>¿Dónde registrarías el hallazgo? ¿Qué puedes afirmar sobre su origen y contenido? Añade una observación y un dato que comprobarías.</p></div>');
+ }
+ $('cards').replaceChildren();cards.slice(0,state.revealed>=3?11:state.revealed>=1?8:7).forEach((card,i)=>btn(card,()=>{chosen=i;render()},$('cards'),chosen===i));
+ $('map').replaceChildren();zones.forEach((zone,i)=>{
+ const panel=document.createElement('article');panel.hidden=i!==district;panel.innerHTML='<h3>'+zone+'</h3>';
+ const items=document.createElement('div');panel.append(items);
+ state.map[i].forEach(j=>{const b=btn(cards[j]+' ×',()=>{state.map[i]=state.map[i].filter(k=>k!==j);update()},items);b.className='chip';b.setAttribute('aria-label','Retirar '+cards[j]+' de '+zone)});
+ const add=btn('Añadir '+cards[chosen],()=>{state.map[i].push(chosen);update()},panel);add.disabled=state.map[i].includes(chosen);add.title=cards[chosen];
+ $('map').append(panel);
+ }); draw();
+}
+labels.forEach((label,i)=>{
+ const field=document.createElement('label');field.textContent=label;
+ const area=document.createElement('textarea');area.value=state.notes[i];area.placeholder=['Qué observamos y en qué zona','Qué proponemos y por qué','Qué dato falta y cómo recogerlo'][i];
+ area.oninput=()=>{state.notes[i]=area.value;save()};field.append(area);$('notes').append(field);
+});
+$('reset').onclick=()=>{if(confirm('¿Borrar el mapa, el parte y las pistas abiertas?')){state=initial();chosen=0;document.querySelectorAll('textarea').forEach(x=>x.value='');update()}};
+$('download').onclick=()=>{
+ const output=['La ciudad que cambia','MAPA',...zones.map((z,i)=>z+' · '+(state.map[i].map(j=>cards[j]).join(', ')||'Sin tarjetas')), 'PARTE',...labels.map((l,i)=>l+'\n'+(state.notes[i]||'Sin anotaciones')), ...(state.goal?['Pregunta sobre la carga\n'+state.goal]:[])].join('\n\n');
+ const url=URL.createObjectURL(new Blob([output],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Parte_de_la_ciudad.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+
+let priorWork;
+function pack(){
+ return {map:Object.fromEntries(state.map.map((v,i)=>[i,[...v]])),notes:[...state.notes],opened:[...state.opened],extra:state.extra,goal:state.goal,responses:{...state.responses}};
+}
+window.cityTeam={
+ phases,
+ empty:()=>({map:{0:[],1:[],2:[],3:[]},notes:['','',''],opened:[],extra:false,goal:'',responses:{}}),
+ load(work){
+  state={...initial(),...work,map:[0,1,2,3].map(i=>work.map[i]||[]),responses:work.responses||{}};
+  document.querySelectorAll('#notes textarea').forEach((el,i)=>el.value=state.notes[i]);
+  priorWork=pack();render();
+ },
+ stage(data){Object.assign(state,{phase:data.phase,revealed:data.revealed,surprise:data.surprise});render()},
+ summary(w,feedback){
+ return [scoreText(feedback),...zones.map((z,i)=>z+' · '+(w.map[i]||[]).map(j=>cards[j]).join(', ')),
+ ...events.map(([title],i)=>title+' · '+(w.responses?.[i]||'Pendiente')),
+ 'Sorpresa final · '+(w.responses?.final||'Pendiente'),
+ 'Pregunta · '+w.goal,'Sobres · '+w.opened.map(i=>envelopes[i][0]).join(', '),
+ ...labels.map((l,i)=>l+' · '+w.notes[i])];
+ }
+};
+function teamSave(){
+ if(!priorWork||!window.cityTeam.save)return;
+ const work=pack();
+ const patch=Object.fromEntries(Object.entries(work).filter(([key,value])=>JSON.stringify(value)!==JSON.stringify(priorWork[key])));
+ if(!Object.keys(patch).length)return;
+ priorWork=work;window.cityTeam.save(patch);
+}
+
+const clues={
+ 0:'Revisad si todos los objetos son del mismo material. ¿Qué comprobaríais antes de tratar los vasos reutilizables como residuos?',
+ 1:'Distinguid la masa de agua de la masa de cartón seco. ¿Cuál de las dos aumenta al mojarse?',
+ 2:'Separad metal, madera maciza y tablero. ¿Qué dato pediríais sobre recubrimientos o piezas mezcladas?',
+ 3:'Indicad en qué corriente aparecen los impropios. ¿Ver algunos fragmentos permite calcular su proporción?',
+ final:'Separad el lugar donde se hallaron las bolsas del posible lugar de origen. ¿Qué evidencia tenéis de cada uno?'
+};
+function scoreText(feedback){
+ const scores=['0','1','2','3','final'].map(key=>feedback?.[key]?.score).filter(Number.isInteger);
+ return 'Puntuación · '+scores.reduce((total,score)=>total+score,0)+' / 15 · '+scores.length+' de 5 respuestas evaluadas';
+}
+let teacherFeedback={};
+function showFeedback(){ document.getElementById('team-score').textContent=scoreText(teacherFeedback);
+ for(const box of document.querySelectorAll('[data-feedback]')){
+  const value=teacherFeedback[box.dataset.feedback];
+  box.textContent=value?[value.reaction, value.message?value.kind+' · '+value.message:'',Number.isInteger(value.score)?value.score+' / 3 puntos':''].filter(Boolean).join(' · '):'';
+  box.hidden=!value;
+ }
+}
+window.cityTeam.feedback=data=>{teacherFeedback=data||{};showFeedback()};
+
+function answer(container,key){
+ const label=document.createElement('label'),box=document.createElement('textarea');
+ label.textContent='Respuesta del equipo';box.maxLength=2500;
+ box.placeholder='Qué cambia, por qué y qué falta comprobar';
+ box.value=state.responses?.[key]||'';
+ box.oninput=()=>{state.responses[key]=box.value;save()};
+ label.append(box);container.append(label); const hint=document.createElement("details"); const summary=document.createElement("summary"); summary.textContent="Pista para revisar"; hint.append(summary,clues[key]);container.append(hint);const note=document.createElement("p");note.className="feedback";note.dataset.feedback=key;note.setAttribute("role","status");container.append(note);showFeedback();
+}
+
+render();</script><script type="module" src="./sync.js"></script></html>
+
+
+
+
+

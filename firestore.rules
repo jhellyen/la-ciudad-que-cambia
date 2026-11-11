@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function teacher() {
+      return request.auth != null && request.auth.uid == 'REEMPLAZAR_UID_DOCENTE';
+    }
+    function student() {
+      return request.auth != null && request.auth.token.firebase.sign_in_provider == 'anonymous';
+    }
+    match /sessions/{session} {
+      allow get: if teacher() || student();
+      allow list, write: if teacher();
+      match /teams/{team} {
+        allow get: if teacher() || (student() && (resource.data.editor == null || resource.data.editor == request.auth.uid));
+        allow list, create, delete: if teacher();
+        allow update: if teacher() || (student() && (
+          (resource.data.editor == null &&
+            request.resource.data.editor == request.auth.uid &&
+            request.resource.data.diff(resource.data).affectedKeys().hasOnly(['editor'])) ||
+          (resource.data.editor == request.auth.uid &&
+            request.resource.data.diff(resource.data).affectedKeys().hasOnly(['work','updated']) &&
+            request.resource.data.work is map &&
+            request.resource.data.work.keys().hasOnly(['map','notes','opened','extra','goal','responses']) &&
+            request.resource.data.updated == request.time)
+        ));
+      }
+    }
+  }
+}
