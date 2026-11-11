@@ -2,7 +2,7 @@
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
 import {getAuth, signInAnonymously, signInWithEmailAndPassword, signOut} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
 import {getFirestore,doc,collection,onSnapshot,getDoc,setDoc,updateDoc,writeBatch,runTransaction,serverTimestamp} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
-import {firebaseConfig} from './firebase-config.js';
+import {firebaseConfig} from './firebase-config.js?v=2';
 
 const form=document.querySelector('#access'), game=document.querySelector('main'), status=document.querySelector('#connection'), panel=document.querySelector('#teacher');
 const byId=id=>document.getElementById(id);
@@ -142,6 +142,7 @@ if(args.has('session')&&args.has('team')){
  else say('Enlace de equipo incorrecto');
 }
 }
+
 
 
 
