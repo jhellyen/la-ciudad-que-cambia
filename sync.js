@@ -80,6 +80,36 @@ function feedbackForm(team,where){
  sync();where.append(form);
 }
 
+const sessionDates=new Intl.DateTimeFormat('es-ES',{timeZone:'Europe/Madrid',dateStyle:'long'});
+function watchArchive(){
+ const archive=byId('archive'), list=byId('archive-folders');
+ archive.hidden=false;
+ onSnapshot(collection(db,'sessions'),snapshot=>{
+  const expanded=new Set(Array.from(list.querySelectorAll('details[open]'),d=>d.dataset.date));
+  const folders=new Map();
+  for(const entry of [...snapshot.docs].sort((a,b)=>(b.data().created?.toMillis()||0)-(a.data().created?.toMillis()||0))){
+   const date=entry.data().created?.toDate();
+   const label=date?sessionDates.format(date):'Sin fecha registrada';
+   if(!folders.has(label))folders.set(label,[]);
+   folders.get(label).push(entry);
+  }
+  list.replaceChildren();
+  if(!folders.size)list.textContent='Todavía no hay sesiones guardadas.';
+  for(const [date,entries] of folders){
+   const folder=document.createElement('details'), heading=document.createElement('summary');
+   folder.dataset.date=date;folder.open=expanded.has(date);
+   heading.textContent='📁 '+date+' · '+entries.length+(entries.length===1?' sesión':' sesiones');
+   folder.append(heading);
+   for(const entry of entries){
+    const row=document.createElement('p');folder.append(row);
+    button('Abrir '+entry.data().title,()=>{
+     byId('existing').value=entry.id;openTeacher(entry.id);panel.scrollIntoView({block:'start'});
+    },row);
+   }
+   list.append(folder);
+  }
+ },error=>{list.textContent='No se pudo cargar el archivo · '+error.message});
+}
 function openTeacher(sessionId){
  clear();panel.replaceChildren();panel.hidden=false;
  const session=doc(db,'sessions',sessionId), teams=collection(session,'teams');
@@ -117,7 +147,7 @@ function openTeacher(sessionId){
 }
 byId('teacher-login').onsubmit=e=>{e.preventDefault();attempt(async()=>{
  await signInWithEmailAndPassword(auth,byId('email').value,byId('password').value);
- byId('password').value='';mode='teacher';byId('teacher-login').hidden=true;byId('teacher-session').hidden=false;say('Sesión docente iniciada');
+ byId('password').value='';mode='teacher';byId('teacher-login').hidden=true;byId('teacher-session').hidden=false;say('Sesión docente iniciada');watchArchive();
 })};
 byId('teacher-session').onsubmit=e=>{e.preventDefault();attempt(async()=>{
  if(mode!=='teacher')return;
@@ -143,6 +173,7 @@ if(args.has('session')&&args.has('team')){
  else say('Enlace de equipo incorrecto');
 }
 }
+
 
 
 
