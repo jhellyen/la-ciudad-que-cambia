@@ -25,8 +25,8 @@ section,details,.map article:nth-child(n){background:#131f2a;border-color:#34465
 .street-observation{left:4%;right:128px;bottom:5%;background:#0c1724df;border:1px solid #52646f;min-height:36px;display:flex;align-items:center}
 .street-answer{bottom:5%;right:3%;background:#f2c476;color:#16202a;border:1px solid #ffe1ac;font-weight:750}
 @media(max-width:620px){.street-items button{top:57%;padding:5px 7px}.street-observation{bottom:4%;right:112px}.street-answer{max-width:100px;white-space:normal}}
-header{background:linear-gradient(90deg,#101d2af5 10%,#152739e8 49%,#0e1e2f40),url(./escena-ciudad.jpg) center 44%/cover}.inspection-count{position:absolute;right:4%;top:6%;padding:5px 9px;border:1px solid #e9c889;border-radius:8px;background:#0d1c28e8;color:#fff0cc;font-size:clamp(10px,1.3vw,14px)}.street-view h3{max-width:70%}.street-view{background-size:100% 100%}button:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid #f5cb7c;outline-offset:2px}#stage.street-open{aspect-ratio:2.15;min-height:230px}.street-items button{left:23%;top:70%}.street-items button:nth-child(2){left:80%}.street-view{background-size:cover}@media(max-width:550px){.street-items button{top:59%}}</style><header><h1>La ciudad que cambia</h1><p>Somos el equipo encargado de conocer los residuos de una ciudad. Tenemos que identificar qué se genera, dónde y qué características presenta. La ciudad irá cambiando y nuestro mapa tendrá que cambiar con ella.</p></header><section id="room"><p id="connection" role="status">Conectando con Firebase…</p><div id="access"><form id="teacher-login" class="row"><label>Correo docente <input id="email" type="email" required autocomplete="username"></label><label>Contraseña <input id="password" type="password" required autocomplete="current-password"></label><button>Entrar al panel docente</button></form><form id="teacher-session" hidden><p><label>Nombre de la sesión <input id="session-title" maxlength="100"></label> <label>Equipos <input id="team-count" type="number" value="4" min="2" max="12"></label> <button>Crear sesión</button></p><label>Identificador de una sesión <input id="existing"></label> <button type="button" id="resume">Reabrir sesión</button></form></div><section id="archive" hidden><h2>Sesiones guardadas por fecha</h2><p class="muted">Abre una carpeta y selecciona una sesión para consultar el trabajo de sus equipos.</p><div id="archive-folders">Cargando sesiones…</div></section><div id="teacher" hidden></div></section><main hidden><section><h2 id="team-score" role="status">Puntuación · 0 / 15</h2><details><summary>Roles del equipo en Zoom</summary><p><b>Portavoz</b> maneja el mapa y escribe. <b>Observación</b> describe los objetos. <b>Interpretación</b> propone qué cambia y por qué. <b>Comprobación</b> identifica qué datos faltan. Rotad los roles con cada incidente.</p></details><p>Por reto, 1 punto si identificáis el cambio, 2 si además lo justificáis y 3 si también indicáis qué queda por comprobar o cómo lo comprobaríais.</p></section>
-<nav id="phases" aria-label="Fases"></nav><div id="layout"><div><section><h2>Mapa de la ciudad</h2><div id="stage"><canvas id="city" role="img" aria-label="Ciudad en perspectiva isométrica"></canvas><div id="pins"></div></div><div class="row toolbar"><button id="zoom">Vista general</button><button id="full">Pantalla completa</button></div><p class="muted">Selecciona un distrito. El número indica los tipos registrados.</p><div id="map" class="map"></div></section>
+header{background:linear-gradient(90deg,#101d2af5 10%,#152739e8 49%,#0e1e2f40),url(./escena-ciudad.jpg) center 44%/cover}.inspection-count{position:absolute;right:4%;top:6%;padding:5px 9px;border:1px solid #e9c889;border-radius:8px;background:#0d1c28e8;color:#fff0cc;font-size:clamp(10px,1.3vw,14px)}.street-view h3{max-width:70%}.street-view{background-size:100% 100%}button:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid #f5cb7c;outline-offset:2px}#stage.street-open{aspect-ratio:2.15;min-height:230px}.street-items button{left:23%;top:70%}.street-items button:nth-child(2){left:80%}.street-view{background-size:cover}@media(max-width:550px){.street-items button{top:59%}}.street-view[data-district="viviendas"]{background-image:url(./distrito-viviendas.jpg)}.street-view[data-district="mercado"]{background-image:url(./distrito-mercado.jpg)}.street-view[data-district="oficinas"]{background-image:url(./distrito-oficinas.jpg)}.district-observation{right:150px}@media(max-width:620px){.district-observation{right:112px}}</style><header><h1>La ciudad que cambia</h1><p>Somos el equipo encargado de conocer los residuos de una ciudad. Tenemos que identificar qué se genera, dónde y qué características presenta. La ciudad irá cambiando y nuestro mapa tendrá que cambiar con ella.</p></header><section id="room"><p id="connection" role="status">Conectando con Firebase…</p><div id="access"><form id="teacher-login" class="row"><label>Correo docente <input id="email" type="email" required autocomplete="username"></label><label>Contraseña <input id="password" type="password" required autocomplete="current-password"></label><button>Entrar al panel docente</button></form><form id="teacher-session" hidden><p><label>Nombre de la sesión <input id="session-title" maxlength="100"></label> <label>Equipos <input id="team-count" type="number" value="4" min="2" max="12"></label> <button>Crear sesión</button></p><label>Identificador de una sesión <input id="existing"></label> <button type="button" id="resume">Reabrir sesión</button></form></div><section id="archive" hidden><h2>Sesiones guardadas por fecha</h2><p class="muted">Abre una carpeta y selecciona una sesión para consultar el trabajo de sus equipos.</p><div id="archive-folders">Cargando sesiones…</div></section><div id="teacher" hidden></div></section><main hidden><section><h2 id="team-score" role="status">Puntuación · 0 / 15</h2><details><summary>Roles del equipo en Zoom</summary><p><b>Portavoz</b> maneja el mapa y escribe. <b>Observación</b> describe los objetos. <b>Interpretación</b> propone qué cambia y por qué. <b>Comprobación</b> identifica qué datos faltan. Rotad los roles con cada incidente.</p></details><p>Por reto, 1 punto si identificáis el cambio, 2 si además lo justificáis y 3 si también indicáis qué queda por comprobar o cómo lo comprobaríais.</p></section>
+<nav id="phases" aria-label="Fases"></nav><div id="layout"><div><section><h2>Mapa de la ciudad</h2><div id="stage"><canvas id="city" role="img" aria-label="Ciudad en perspectiva isométrica"></canvas><div id="pins"></div></div><div class="row toolbar"><button id="zoom">Vista general</button><button id="full">Pantalla completa</button></div><p class="muted">Selecciona Viviendas, Mercado u Oficinas para entrar en su escena. Usa «Vista general» para volver al mapa.</p><div id="map" class="map"></div></section>
 <section id="palette"><h2>Tarjetas de residuos</h2><p>Selecciona una tarjeta y pulsa «Añadir» en el distrito seleccionado. Puedes repetirla en varias zonas. Pulsa × en una tarjeta del mapa para retirarla.</p><div id="cards" class="row"></div></section>
 </div><section id="activity" aria-live="polite"></section></div>
 <section><h2>Parte de la ciudad</h2><p class="feedback" data-feedback="general" role="status" hidden></p><div id="notes" class="notes"></div><div class="row"><button id="download">Descargar mapa y parte</button><button id="reset">Reiniciar sesión</button></div></section>
@@ -79,7 +79,25 @@ const stage=$('stage');
 const streetViews=["Parque · Festival","Mercado · Lluvia","Oficinas · Renovación","Mercado · Mezcla de residuos","Parque · Bolsas cerradas"];
 const streetView=document.createElement('div');
 streetView.className='street-view';streetView.hidden=true;stage.append(streetView);
-function showStreet(index){
+const districtViews=[
+ ['Viviendas','viviendas','Observad qué residuos pueden generarse en los hogares y anotad vuestra selección en el mapa.'],
+ ['Mercado','mercado','Fijaos en los puestos, las cajas y la zona de carga. ¿Qué residuos registraríais?'],
+ ['Oficinas','oficinas','Observad la entrada, el mobiliario y la actividad de trabajo. ¿Qué residuos podrían generarse?']
+];
+function showDistrict(index){
+ const [name,asset,description]=districtViews[index];
+ delete streetView.dataset.scene;
+ streetView.dataset.district=asset;
+ streetView.hidden=false;stage.classList.add('street-open');
+ const heading=document.createElement('h3');heading.textContent=name;
+ const note=document.createElement('p');note.className='street-observation district-observation';note.textContent=description;
+ streetView.replaceChildren(heading,note);
+ const add=btn('Ir a las tarjetas',()=>{
+  const target=$('cards').querySelector('button');if(target){target.focus({preventScroll:true});target.scrollIntoView({block:'nearest'})}
+ },streetView);
+ add.className='street-answer';heading.tabIndex=-1;heading.focus({preventScroll:true});
+}
+function showStreet(index){ delete streetView.dataset.district;
 
  streetView.hidden=index<0;
  stage.classList.toggle('street-open',index>=0);
@@ -215,7 +233,7 @@ function draw(){
  [[4,4,3.4],[15.5,4.5,3.25],[5,15.6,4.8],[15.9,16.3,1.2]].forEach(([x,y,z],i)=>{
  const [a,b]=pt(x,y,z);
  const count=state.map[i].length;
- const pin=btn(zones[i]+(count?' · '+count:''),()=>{district=i;render();$('pins').children[i].focus()},$('pins'),district===i);
+ const pin=btn(zones[i]+(count?' · '+count:''),()=>{district=i;render();if(districtViews[i])showDistrict(i);else $('pins').children[i].focus()},$('pins'),district===i);
  pin.style.left=a/8+'%';pin.style.top=b/4.85+'%';
  });
 
@@ -338,6 +356,7 @@ function answer(container,key){ inspect(container,key);
 }
 
 render();</script><script type="module" src="./sync.js?v=4"></script></html>
+
 
 
 
